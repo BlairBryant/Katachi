@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import './App.css'
+import {BrowserRouter as Router} from 'react-router-dom'
+import routes from './routes'
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-     heyyo
-      </div>
+      <Router >
+        <div className="App">
+          {routes}
+        </div>
+      </Router>
     )
   }
 }
-
-export default App
