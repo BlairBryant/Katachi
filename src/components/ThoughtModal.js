@@ -1,32 +1,43 @@
 import React, { Component } from 'react'
+import ThoughtEditor from './ThoughtEditor';
 
 export default class ThoughtModal extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            thoughtInput: ''
+            thoughtInput: '',
+            titleInput: '',
         }
     }
 
+    componentDidMount() {
+        this.thoughtInput.focus()
+    }
+
     clearModal = () => {
-        this.props.toggleModal(this.state.thoughtInput)
+        this.props.toggleModal(this.state.titleInput, this.state.thoughtInput)
     }
 
     stopPropagation = (e) => {
         e.stopPropagation()
     }
 
-    inputThought = (e) => {
+    inputTitle = (e) => {
         this.setState({thoughtInput: e.target.value})
+    }
+    
+    inputThought = (e) => {
+        this.setState({titleInput: e.target.value})
     }
 
     render() {
         return (
             <div className='modalBackground' onClick={this.clearModal}>
-                <div className="ThoughtModal" onClick={this.stopPropagation}>
-                    <p>my thought</p>
-                    <textarea className='mainTextArea' onChange={this.inputThought}/>
+                <ThoughtEditor stopPropagation={this.stopPropagation}/>
+                <div className="ThoughtModal" onClick={this.stopPropagation} autoFocus>
+                    <input className='titleInput' placeholder='Title' onChange={this.inputTitle}/>
+                    <textarea className='mainTextArea' onChange={this.inputThought} ref={input => this.thoughtInput = input} onChange={this.inputTitle}/>
                 </div>
             </div>
         )

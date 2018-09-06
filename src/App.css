@@ -1,9 +1,63 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
 .App {
   text-align: center;
 }
 
+button {
+  /* border: none;
+  border-style: none; */
+  font-family: 'Open Sans', sans-serif;
+}
+
+input {
+  font-family: 'Open Sans', sans-serif;
+}
+
 textArea {
   resize: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.justify {
+  justify-content: center;
+}
+
+.align {
+  align-items: center;
 }
 
 /* ------------------------------------- */
@@ -13,6 +67,8 @@ textArea {
   height: 100vh;
   font-family: 'Open Sans', sans-serif;
 }
+
+/* ------------------------------------- */
 
 .modalBackground {
   width: 100%;
@@ -25,11 +81,25 @@ textArea {
 .ThoughtModal {
   width: 30%;
   height: 50%;
+  background: lightgray;
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0px 3px 8px #999;
+  border-radius: 16px;
+}
+
+.titleInput {
+  width: 100%;
+  background: lightgray;
+  border: none;
+  border-style: none;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  outline: none;
+  font-weight: bold;
 }
 
 .mainTextArea {
@@ -38,8 +108,26 @@ textArea {
   border-style: none;
   padding: 10px 20px;
   width: 100%;
-  height: 100%;
+  height: 90%;
   box-sizing: border-box;
   border-radius: 16px;
   outline: none;
+}
+
+/* ------------------------------------- */
+
+.ThoughtEditor {
+  width: 30%;
+  min-width: 250px;
+  height: 100%;
+  background: green;
+  padding-top: 10%;
+}
+
+.selectColor {
+  width: 24px;
+  height: 24px;
+  margin: 4px;
+  border-radius: 50%;
+  cursor: pointer;
 }

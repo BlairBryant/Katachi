@@ -12,12 +12,13 @@ export default class Home extends Component {
     this.state = {
       modalToggle: true,
       newestThoughtText: '',
+      newestTitleText: '',
     }
   }
 
-  toggleModal = (thought) => {
+  toggleModal = (title, thought) => {
     // if (thought) axios.post('', {thought})
-    this.setState({newestThoughtText: thought, modalToggle: !this.state.modalToggle})
+    this.setState({newestTitleText: title, newestThoughtText: thought, modalToggle: !this.state.modalToggle})
   }
 
   render() {
