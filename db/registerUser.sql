@@ -4,4 +4,4 @@ VALUES
 ($1, $2);
 
 SELECT * FROM users
-WHERE username = $1
+WHERE username = $1;
