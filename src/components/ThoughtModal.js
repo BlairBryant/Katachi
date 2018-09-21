@@ -64,7 +64,7 @@ export default class ThoughtModal extends Component {
 				<ThoughtEditor stopPropagation={this.stopPropagation} changeColor={this.changeColor} />
 				<div className="ThoughtModal" onClick={this.stopPropagation} autoFocus style={{ background: this.state.color }}>
 					<input className='titleInput' placeholder='Title' onChange={this.inputTitle} style={{ background: this.state.color }} />
-					<textarea className='mainTextArea' onChange={this.inputThought} ref={input => this.thoughtInput = input} style={{ background: this.state.thoughtColor }} />
+					<textarea className='mainTextArea' onChange={this.inputThought} ref={input => this.thoughtInput = input} style={{ background: this.state.color }} />
 				</div>
 			</div>
 		)

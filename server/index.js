@@ -38,6 +38,7 @@ app.use(checkUserSession)
 app.post('/api/register', user_ctrl.register)
 app.put('/api/login', user_ctrl.login)
 
+app.get('/api/getthoughts', thought_ctrl.getThoughts)
 app.post('/api/createthought', thought_ctrl.createThought)
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`))
