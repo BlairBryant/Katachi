@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import ThoughtEditor from './ThoughtEditor';
+import ThoughtEditor from './ThoughtEditor'
+import axios from 'axios'
 
 export default class ThoughtModal extends Component {
 	constructor(props) {
@@ -9,25 +10,37 @@ export default class ThoughtModal extends Component {
 			thought: {},
 			thoughtInput: '',
 			titleInput: '',
-			color: null,
 			belief: null,
 			belief_amt: null,
 			quote: false,
+			color: null,
+			is_private: false,
 		}
 	}
 
 	componentDidMount() {
-		this.thoughtInput.focus()
+		const {thought} = this.props
+		console.log(this.props.match.params.id)
+		if (this.props.match.params.id !== 'new')
+		this.setState({
+			thought,
+			thoughtInput: thought.thought,
+			titleInput: thought.title,
+			belief: thought.belief,
+			belief_amt: thought.belief_amt,
+			quote: thought.quote,
+			color: thought.color,
+			is_private: thought.is_private
+			})
 	}
 
 	clearModal = () => {
-		const { thoughtInput, titleInput, belief, belief_amt, quote, color } = this.state
+		const { thoughtInput, titleInput, belief, belief_amt, quote, color, is_private } = this.state
 		let today = new Date(Date.now())
 		let month = today.getMonth() + 1
 		let day = today.getDate()
 		let year = today.getFullYear()
 		let date = `${month}/${day}/${year}`
-		console.log(date)
 		let thought = {
 			date,
 			thought: thoughtInput,
@@ -35,9 +48,10 @@ export default class ThoughtModal extends Component {
 			belief,
 			belief_amt,
 			quote,
-			color
+			color,
+			is_private
 		}
-		this.props.toggleModal(thought)
+		this.props.removeModal(thought)
 	}
 
 	stopPropagation = (e) => {
@@ -56,12 +70,11 @@ export default class ThoughtModal extends Component {
 		this.setState({ color })
 	}
 
-
 	render() {
 		console.log(this.state)
 		return (
 			<div className='modalBackground' onClick={this.clearModal}>
-				<ThoughtEditor stopPropagation={this.stopPropagation} changeColor={this.changeColor} />
+				<ThoughtEditor {...this.props} stopPropagation={this.stopPropagation} changeColor={this.changeColor} />
 				<div className="ThoughtModal" onClick={this.stopPropagation} autoFocus style={{ background: this.state.color }}>
 					<input className='titleInput' placeholder='Title' onChange={this.inputTitle} style={{ background: this.state.color }} />
 					<textarea className='mainTextArea' onChange={this.inputThought} ref={input => this.thoughtInput = input} style={{ background: this.state.color }} />

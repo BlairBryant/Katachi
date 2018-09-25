@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class ThoughtEditor extends Component {
 	constructor(props) {
@@ -15,8 +16,13 @@ export default class ThoughtEditor extends Component {
 		this.props.stopPropagation(e)
 	}
 
+	deleteThought = () => {
+		axios.delete(`/api/deletethought/${this.props.match.params.id}`)
+		this.props.history.push('/home')
+	}
+
 	render() {
-		let mappedColors = this.colors.map((color, i)=>
+		let mappedColors = this.colors.map((color, i) =>
 			<div className='selectColor' style={{ background: color }} onClick={() => this.props.changeColor(color)} key={i}></div>
 		)
 		let mappedColors2 = this.colors2.map((color, i) =>
@@ -35,6 +41,13 @@ export default class ThoughtEditor extends Component {
 				<div className='row'>
 					{mappedColors2}
 				</div>
+				{
+					this.props.match.params.id !== 'new'
+						?
+						<button onClick={this.props.deleteThought}>Delete</button>
+						:
+						null
+				}
 			</div>
 		)
 	}

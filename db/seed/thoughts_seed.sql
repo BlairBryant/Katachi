@@ -7,7 +7,8 @@ CREATE TABLE thoughts (
     belief BOOLEAN DEFAULT NULL,
     belief_amt INT DEFAULT NULL,
     quote BOOLEAN DEFAULT false NOT NULL,
-    color VARCHAR(7) DEFAULT NULL
+    color VARCHAR(7) DEFAULT NULL,
+    is_private BOOLEAN DEFAULT false
 );
 
 INSERT INTO thoughts

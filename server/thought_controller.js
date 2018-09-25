@@ -2,7 +2,9 @@ module.exports = {
   getThoughts: (req, res) => {
     const db = req.app.get('db')
     console.log('hit')
-    db.getThoughts([req.session.user.user_id]).then(thoughts => {
+    // CHANGE THIS BACK ONCE I DON'T NEED TO BE LOGGED IN GETTING THOUGHTS FROM THE SAME PERSON
+    // db.getThoughts([req.session.user.user_id]).then(thoughts => {
+    db.getThoughts([2]).then(thoughts => {
       res.status(200).send(thoughts)
     })
   },
