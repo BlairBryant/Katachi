@@ -61,13 +61,15 @@ export default class Home extends Component {
   render() {
     console.log(this.state)
     let mappedThoughts = this.state.chronologicalThoughts.map((thought, i) => (
-      <div key={i} onClick={() => this.openThought(thought)}>Thought</div>
+      <div key={i} className='chronoThought' onClick={() => this.openThought(thought)}>
+        <h3>{thought.title}</h3>
+        <p>{thought.thought}</p>        
+      </div>
     ))
     return (
       <div className='Home'>
-        <div>
+        <div className='column align'>
           {mappedThoughts}
-          Heyo
         </div>
         {
           this.state.modalToggle

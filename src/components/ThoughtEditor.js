@@ -41,6 +41,7 @@ export default class ThoughtEditor extends Component {
 				<div className='row'>
 					{mappedColors2}
 				</div>
+				<button onClick={this.props.isPrivate}>Private</button>
 				{
 					this.props.match.params.id !== 'new'
 						?

@@ -70,11 +70,14 @@ export default class ThoughtModal extends Component {
 		this.setState({ color })
 	}
 
+	isPrivate = () => {
+		this.setState({is_private: !this.state.is_private})
+	}
+
 	render() {
-		console.log(this.state)
 		return (
 			<div className='modalBackground' onClick={this.clearModal}>
-				<ThoughtEditor {...this.props} stopPropagation={this.stopPropagation} changeColor={this.changeColor} />
+				<ThoughtEditor {...this.props} stopPropagation={this.stopPropagation} changeColor={this.changeColor} isPrivate={this.isPrivate} />
 				<div className="ThoughtModal" onClick={this.stopPropagation} autoFocus style={{ background: this.state.color }}>
 					<input className='titleInput' placeholder='Title' onChange={this.inputTitle} style={{ background: this.state.color }} />
 					<textarea className='mainTextArea' onChange={this.inputThought} ref={input => this.thoughtInput = input} style={{ background: this.state.color }} />

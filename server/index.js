@@ -40,5 +40,6 @@ app.put('/api/login', user_ctrl.login)
 
 app.get('/api/getthoughts', thought_ctrl.getThoughts)
 app.post('/api/createthought', thought_ctrl.createThought)
+app.delete('/api/deletethought/:id', thought_ctrl.deleteThought)
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`))
