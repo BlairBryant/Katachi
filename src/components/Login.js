@@ -27,12 +27,11 @@ export default class Login extends Component {
 
   login = () => {
     axios.put('/api/login', {email: this.state.email.toLowerCase(), password: this.state.password}).then(res => {
-      if (res.data = 'success') this.props.history.push('/home/new')
+      if (res.data === 'success') this.props.history.push('/home/new')
     })
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="Login">
         <h3>Username</h3>

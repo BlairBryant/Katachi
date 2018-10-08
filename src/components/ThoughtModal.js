@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ThoughtEditor from './ThoughtEditor'
-import axios from 'axios'
 
 export default class ThoughtModal extends Component {
 	constructor(props) {
@@ -57,7 +56,7 @@ export default class ThoughtModal extends Component {
 			is_private
 		}
 		if (this.props.match.params.id !== 'new') thought.thought_id = this.state.thought.thought_id
-		this.props.removeModal(thought)
+		this.props.removeModal(thought, this.props.match.params.id)
 	}
 
 	stopPropagation = (e) => {
@@ -81,7 +80,6 @@ export default class ThoughtModal extends Component {
 	}
 
 	render() {
-		console.log(this.state)
 		return (
 			<div className='modalBackground' onClick={this.clearModal}>
 				<ThoughtEditor {...this.props} stopPropagation={this.stopPropagation} changeColor={this.changeColor} isPrivate={this.isPrivate} />

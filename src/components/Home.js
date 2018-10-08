@@ -51,10 +51,10 @@ export default class Home extends Component {
   //If a date on a thought is edited, I need to make it so that it automatically 
   //moves itself to the new appropriate location
 
-  removeModal = (thought) => {
+  removeModal = (thought, urlParam) => {
     if (thought.thought) {
-      console.log(this.props.match.params.id)
-      if (this.props.match.params.id !== 'new') {
+      console.log(urlParam)
+      if (urlParam !== 'new') {
         console.log(thought)
         axios.patch('/api/editthought', { thought }).then(res => {
           this.sortThoughtsChronological(res)
@@ -86,7 +86,7 @@ export default class Home extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.props)
     let mappedThoughts = this.state.chronologicalThoughts.map((day, i) => (
       this.mapChronoThoughts(day)
     ))

@@ -3,7 +3,6 @@ var session_id_count = 1
 
 module.exports = {
 	register: (req, res) => {
-		console.log(req.body)
 		const { email, password } = req.body
 		const db = req.app.get('db')
 		db.checkUsernameTaken([email]).then(user => {
@@ -24,7 +23,6 @@ module.exports = {
 		})
 	},
 	login: (req, res) => {
-		console.log(req.body)
 		const { email, password } = req.body
 		const db = req.app.get('db')
 		db.checkUsernameTaken([email]).then(user => {
