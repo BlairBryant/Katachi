@@ -142,3 +142,16 @@ textArea {
   border-radius: 50%;
   cursor: pointer;
 }
+
+.thoughtTypeSelected {
+  border: 1px solid lightblue;
+  background: yellow;
+}
+
+.privateButton {
+  background: red;
+}
+
+.notPrivateButton {
+  background: green;
+}

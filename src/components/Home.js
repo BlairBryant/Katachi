@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ThoughtModal from './ThoughtModal'
 import axios from 'axios'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Link } from 'react-router-dom'
 //delet this later
 import '../App.css'
 
@@ -24,6 +24,11 @@ export default class Home extends Component {
       this.sortThoughtsChronological(res)
     })
   }
+
+  componentDidUpdate(prevProps) {
+		console.log(prevProps.match.params.id)
+		console.log(this.props.match.params.id)
+	}
 
   sortThoughtsChronological = (res) => {
     let chronologicalThoughts = []
@@ -85,6 +90,10 @@ export default class Home extends Component {
     ))
   }
 
+  routeNewThought = () => {
+    this.setState({modalToggle: true})
+  }
+
   render() {
     console.log(this.props)
     let mappedThoughts = this.state.chronologicalThoughts.map((day, i) => (
@@ -92,6 +101,7 @@ export default class Home extends Component {
     ))
     return (
       <div className='Home'>
+        <Link to='/home/new'><span onClick={this.routeNewThought}>Add new thought</span></Link><br/><br/>
         <div className='column align'>
           {mappedThoughts}
         </div>

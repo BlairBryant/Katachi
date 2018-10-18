@@ -14,6 +14,7 @@ export default class ThoughtModal extends Component {
 			quote: false,
 			color: null,
 			is_private: false,
+			categoryInput: '',
 		}
 	}
 
@@ -75,17 +76,40 @@ export default class ThoughtModal extends Component {
 		this.setState({ color })
 	}
 
-	isPrivate = () => {
+	togglePrivate = () => {
 		this.setState({ is_private: !this.state.is_private })
 	}
 
+	toggleBelief = () => {
+		if (this.state.belief) this.setState({ belief: null})
+		else this.setState({ belief: true})
+	}
+
+	toggleQuestion = () => {
+		if (this.state.belief === true || this.state.belief === null) this.setState({ belief: false})
+		else this.setState({ belief: null})
+	}
+
+	inputCategory = (e) => {
+		this.setState({categoryInput: e.target.value})
+	}
+
+	submitCategory = (e) => {
+		if (this.state.categoryInput && e.key === 'Enter') {
+			//Do something with the category input then this.setState({categoryInput: ''})
+
+		} 		
+	}
+
 	render() {
+		const {is_private, belief, titleInput, thoughtInput, color, categoryInput} = this.state
+		const {clearModal, stopPropagation, toggleBelief, toggleQuestion, changeColor, togglePrivate, inputCategory, submitCategory, inputTitle, inputThought} = this
 		return (
-			<div className='modalBackground' onClick={this.clearModal}>
-				<ThoughtEditor {...this.props} stopPropagation={this.stopPropagation} changeColor={this.changeColor} isPrivate={this.isPrivate} />
-				<div className="ThoughtModal" onClick={this.stopPropagation} autoFocus style={{ background: this.state.color }}>
-					<input className='titleInput' placeholder='Title' value={this.state.titleInput} onChange={this.inputTitle} style={{ background: this.state.color }} />
-					<textarea className='mainTextArea' value={this.state.thoughtInput} onChange={this.inputThought} ref={input => this.thoughtInput = input} style={{ background: this.state.color }} />
+			<div className='modalBackground' onClick={clearModal}>
+				<ThoughtEditor {...this.props} stopPropagation={stopPropagation} isBelief={belief} toggleBelief={toggleBelief} toggleQuestion={toggleQuestion} changeColor={changeColor} is_private={is_private} togglePrivate={togglePrivate} categoryInput={categoryInput} inputCategory={inputCategory} submitCategory={submitCategory}/>
+				<div className="ThoughtModal" onClick={stopPropagation} autoFocus style={{ background: color }}>
+					<input className='titleInput' placeholder='Title' value={titleInput} onChange={inputTitle} style={{ background: color }} />
+					<textarea className='mainTextArea' value={thoughtInput} onChange={inputThought} ref={input => this.thoughtInput = input} style={{ background: color }} />
 				</div>
 			</div>
 		)
