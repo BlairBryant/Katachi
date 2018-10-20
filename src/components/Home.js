@@ -25,32 +25,39 @@ export default class Home extends Component {
     })
   }
 
-  componentDidUpdate(prevProps) {
-		console.log(prevProps.match.params.id)
-		console.log(this.props.match.params.id)
-	}
-
   sortThoughtsChronological = (res) => {
     let chronologicalThoughts = []
     let currentDateGroup = []
+    console.log(res.data)
     res.data.forEach((thought, i, arr) => {
+      console.log(i, thought)
+      if (i === 4) console.log(currentDateGroup)
       if (res.data.length === 1) chronologicalThoughts.push(thought)
+
+
       if (!currentDateGroup.length) {
         currentDateGroup.push(thought)
       }
       else {
         if (thought.date === currentDateGroup[0].date) {
           currentDateGroup.push(thought)
+          if (i === arr.length - 1) chronologicalThoughts.push(currentDateGroup)          
         }
         else {
+          if (i === 4) console.log(currentDateGroup, thought)
+          
           chronologicalThoughts.push(currentDateGroup)
-          currentDateGroup = []
+          currentDateGroup = Object.assign([])
+          if (i === 4) console.log(currentDateGroup, thought)
           currentDateGroup.push(thought)
+          if (i === 4) console.log(currentDateGroup)
           if (i === arr.length - 1) chronologicalThoughts.push(currentDateGroup)
         }
       }
-      this.setState({ thoughts: res.data, chronologicalThoughts })
     })
+
+    console.log(chronologicalThoughts)
+    this.setState({ thoughts: res.data, chronologicalThoughts })
   }
 
   //If a date on a thought is edited, I need to make it so that it automatically 
@@ -65,7 +72,6 @@ export default class Home extends Component {
           this.sortThoughtsChronological(res)
           this.setState({ modalToggle: !this.state.modalToggle }, () => this.props.history.push('/home'))
         })
-        // this.setState({ modalToggle: !this.state.modalToggle }, () => this.props.history.push('/home'))
       } else {
         axios.post('/api/createthought', { thought })
         this.setState({ newestThought: thought, modalToggle: !this.state.modalToggle }, () => this.props.history.push('/home'))
@@ -83,7 +89,7 @@ export default class Home extends Component {
   mapChronoThoughts = (day) => {
     return day.map((thought, i) => (
       <div key={i} className='chronoThought' onClick={() => this.openThought(thought)}>
-        <span>{thought.date}</span>
+        {/* <span>{thought.date}</span> */}
         <h3>{thought.title}</h3>
         <p>{thought.thought}</p>
       </div>
@@ -95,9 +101,12 @@ export default class Home extends Component {
   }
 
   render() {
-    console.log(this.props)
     let mappedThoughts = this.state.chronologicalThoughts.map((day, i) => (
-      this.mapChronoThoughts(day)
+      <div className='chronoThoughts column align'>
+        {day[0].date}
+        {this.mapChronoThoughts(day)}
+      </div>
+      
     ))
     return (
       <div className='Home'>

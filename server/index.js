@@ -42,5 +42,6 @@ app.get('/api/getthoughts', thought_ctrl.getThoughts)
 app.post('/api/createthought', thought_ctrl.createThought)
 app.patch('/api/editthought', thought_ctrl.editThought)
 app.delete('/api/deletethought/:id', thought_ctrl.deleteThought)
+app.get('/api/getcategories/:id', thought_ctrl.getCategories)
 
 app.listen(SERVER_PORT, () => console.log(`listening on port ${SERVER_PORT}`))

@@ -18,16 +18,23 @@ export default class ThoughtEditor extends Component {
 
 	deleteThought = () => {
 		axios.delete(`/api/deletethought/${this.props.match.params.id}`)
+		//todo: set up deleting thought from home view
 		this.props.history.push('/home')
 	}
 
 	render() {
-		const {isBelief, toggleBelief, toggleQuestion, changeColor, is_private, togglePrivate, categoryInput, inputCategory, submitCategory} = this.props 
+		const {isBelief, toggleBelief, toggleQuestion, changeColor, quote, toggleQuote, is_private, togglePrivate, categoryInput, inputCategory, submitCategory, categories, deleteCategory} = this.props 
 		let mappedColors = this.colors.map((color, i) =>
 			<div className='selectColor' style={{ background: color }} onClick={() => changeColor(color)} key={i}></div>
 		)
 		let mappedColors2 = this.colors2.map((color, i) =>
 			<div className='selectColor' style={{ background: color }} onClick={() => changeColor(color)} key={i}></div>
+		)
+		let mappedCategories = categories.map((category, i) => 
+			<div className='row' key={i}>
+				<span>{category.category}</span>
+				<span onClick={() => deleteCategory(category.category)}>X</span>
+			</div>
 		)
 		return (
 			<div className='ThoughtEditor column align' onClick={this.stopPropagation}>
@@ -43,9 +50,12 @@ export default class ThoughtEditor extends Component {
 					{mappedColors2}
 				</div>
 				<br/><br/>
+				<button onClick={toggleQuote} className={quote ? 'privateButton' : 'notPrivateButton'}>{quote ? 'Is Quote' : 'Not Quote'}</button>
+				<br/><br/>
 				<button onClick={togglePrivate} className={is_private ? 'privateButton' : 'notPrivateButton'}>{is_private ? 'Private' : 'Public'}</button>
 				<br/><br/>
 				<input value={categoryInput} onChange={inputCategory} onKeyDown={submitCategory}/>
+				{mappedCategories}
 				{
 					this.props.match.params.id !== 'new'
 						?
