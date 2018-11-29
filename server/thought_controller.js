@@ -13,9 +13,9 @@ module.exports = {
     const {date, title, thought, belief, belief_amt, quote, color, is_private, categories} = req.body.thought
     console.log(req.body)
     // db.createThought([+req.session.user.user_id, date, title, thought, belief, belief_amt, quote, color, is_private])
-    db.createThought([2, date, title, thought, belief, belief_amt, quote, color, is_private]).then(res => {
+    db.createThought([2, date, title, thought, belief, belief_amt, quote, color, is_private]).then(currentThought => {
       categories.forEach(category => {
-        category.thought_id = res[0].thought_id
+        category.thought_id = currentThought[0].thought_id
         db.categories.insert(category)
       })
     })
@@ -24,11 +24,15 @@ module.exports = {
   editThought: (req, res) => {
     const db = req.app.get('db')
     console.log(req.body)
-    const {thought_id, date, title, thought, belief, belief_amt, quote, color, is_private} = req.body.thought
+    const {thought_id, date, title, thought, belief, belief_amt, quote, color, is_private, categories} = req.body.thought
+    categories.forEach(category => {
+      category.thought_id = currentThought[0].thought_id
+      db.categories.insert(category)
+    })
     db.editThought([2, thought_id, date, title, thought, belief, belief_amt, quote, color, is_private]).then(thoughts => {
     // db.editThought([+req.session.user.user_id, thought_id, date, title, thought, belief, belief_amt, quote, color, is_private]).then(thoughts => {
       console.log('whate')
-      console.log(thoughts)
+      // console.log(thoughts)
       res.status(200).send(thoughts)
     })
   },

@@ -25,7 +25,6 @@ export default class ThoughtModal extends Component {
 		const { thought } = this.props
 		if (this.props.match.params.id !== 'new') {
 			axios.get(`/api/getcategories/${this.props.match.params.id}`).then(res => {
-				console.log(res.data)
 				this.setState({
 					thought,
 					thoughtInput: thought.thought,

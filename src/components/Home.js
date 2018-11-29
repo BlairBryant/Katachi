@@ -28,13 +28,10 @@ export default class Home extends Component {
   sortThoughtsChronological = (res) => {
     let chronologicalThoughts = []
     let currentDateGroup = []
-    console.log(res.data)
+    // console.log(res.data)
     res.data.forEach((thought, i, arr) => {
-      console.log(i, thought)
-      if (i === 4) console.log(currentDateGroup)
+      // console.log(i, thought)
       if (res.data.length === 1) chronologicalThoughts.push(thought)
-
-
       if (!currentDateGroup.length) {
         currentDateGroup.push(thought)
       }
@@ -55,8 +52,6 @@ export default class Home extends Component {
         }
       }
     })
-
-    console.log(chronologicalThoughts)
     this.setState({ thoughts: res.data, chronologicalThoughts })
   }
 
@@ -65,10 +60,10 @@ export default class Home extends Component {
 
   removeModal = (thought, urlParam) => {
     if (thought.thought) {
-      console.log(urlParam)
       if (urlParam !== 'new') {
         console.log(thought)
         axios.patch('/api/editthought', { thought }).then(res => {
+          console.log(res)
           this.sortThoughtsChronological(res)
           this.setState({ modalToggle: !this.state.modalToggle }, () => this.props.history.push('/home'))
         })
@@ -102,7 +97,7 @@ export default class Home extends Component {
 
   render() {
     let mappedThoughts = this.state.chronologicalThoughts.map((day, i) => (
-      <div className='chronoThoughts column align'>
+      <div className='chronoThoughts column align' key={i}>
         {day[0].date}
         {this.mapChronoThoughts(day)}
       </div>
