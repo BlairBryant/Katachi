@@ -41,13 +41,13 @@ export default class Home extends Component {
           if (i === arr.length - 1) chronologicalThoughts.push(currentDateGroup)          
         }
         else {
-          if (i === 4) console.log(currentDateGroup, thought)
+          // if (i === 4) console.log(currentDateGroup, thought)
           
           chronologicalThoughts.push(currentDateGroup)
           currentDateGroup = Object.assign([])
-          if (i === 4) console.log(currentDateGroup, thought)
+          // if (i === 4) console.log(currentDateGroup, thought)
           currentDateGroup.push(thought)
-          if (i === 4) console.log(currentDateGroup)
+          // if (i === 4) console.log(currentDateGroup)
           if (i === arr.length - 1) chronologicalThoughts.push(currentDateGroup)
         }
       }

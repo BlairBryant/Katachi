@@ -16,6 +16,7 @@ module.exports = {
     db.createThought([2, date, title, thought, belief, belief_amt, quote, color, is_private]).then(currentThought => {
       categories.forEach(category => {
         category.thought_id = currentThought[0].thought_id
+        //need to pass up user_id
         db.categories.insert(category)
       })
     })
@@ -26,8 +27,12 @@ module.exports = {
     console.log(req.body)
     const {thought_id, date, title, thought, belief, belief_amt, quote, color, is_private, categories} = req.body.thought
     categories.forEach(category => {
-      category.thought_id = currentThought[0].thought_id
-      db.categories.insert(category)
+      if (category.category_id) {
+
+      } else {
+        // category.thought_id = thought_id
+        // db.categories.insert(category)
+      }
     })
     db.editThought([2, thought_id, date, title, thought, belief, belief_amt, quote, color, is_private]).then(thoughts => {
     // db.editThought([+req.session.user.user_id, thought_id, date, title, thought, belief, belief_amt, quote, color, is_private]).then(thoughts => {
@@ -44,9 +49,14 @@ module.exports = {
   },
   getCategories: (req, res) => {
     const db = req.app.get('db')
-    db.getCategories([req.params.id]).then( categories => {
+    //need to pass up user_id
+    db.getCategories([req.params.id]).then(categories => {
       res.status(200).send(categories)
     })
+  },
+  deleteCategory: (req, res) => {
+    const db = req.app.get('db')
+    db.deleteCategory([req.params.id])
   },
 
 }

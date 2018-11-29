@@ -115,9 +115,22 @@ export default class ThoughtModal extends Component {
 
 	deleteCategory = (category) => {
 		let newCategories = this.state.categories.slice()
-		newCategories.forEach((cat, i) => {
-			if (cat.category === category) newCategories.splice(i, 1)
-		})
+			if (this.props.match.params.id === 'new') {
+				newCategories.forEach((cat, i) => {
+					if (cat.category === category) newCategories.splice(i, 1)
+				})
+			} else {
+				newCategories.forEach((cat, i) => {
+					if (cat.category === category) {
+						if (cat.category_id) {
+							newCategories.splice(i, 1)
+							axios.delete(`/api/deletecategory/${cat.category_id}`)
+						} else {
+							newCategories.splice(i, 1)
+						}
+					}
+				})
+			}
 		this.setState({categories: newCategories})
 	}
 
